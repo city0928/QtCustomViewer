@@ -13,18 +13,19 @@ find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 include_directories(
-    CustomView/
-    CustomItems/
+    src/
+    src/CustomView/
+    src/CustomItems/
 )
 
 set(PROJECT_SOURCES
-        main.cpp
-        CustomItems/BaseImageItem.h
-        CustomItems/BaseImageItem.cpp
-        CustomView/Viewer.h
-        CustomView/Viewer.cpp
-        CustomView/BaseImageViewWidget.h
-        CustomView/BaseImageViewWidget.cpp
+    main.cpp
+    src/CustomItems/BaseImageItem.h
+    src/CustomItems/BaseImageItem.cpp
+    src/CustomView/Viewer.h
+    src/CustomView/Viewer.cpp
+    src/CustomView/BaseImageViewWidget.h
+    src/CustomView/BaseImageViewWidget.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
