@@ -52,23 +52,23 @@ void BaseImageViewWidget<T>::resizeEvent(QResizeEvent *event)
 {
     int width = event->size().width();
     int height = event->size().height();
-    auto items = m_Scene->items();
-    for (auto item : items) {
-        auto scaleW = (double)width / item->boundingRect().width();
-        auto scaleH = (double)height / item->boundingRect().height();
+    if constexpr (std::is_same_v<std::remove_reference_t<decltype(m_MainItem)>, QPixmap>) {
+        if(m_Scene->items().size()) {
+            auto scaleW = (double)width / m_Scene->items().at(0)->boundingRect().width();
+            auto scaleH = (double)height / m_Scene->items().at(0)->boundingRect().height();
+            auto lowerScale = scaleW > scaleH ? scaleH : scaleW;
+            auto diffX = (width - m_MainItem.width() * lowerScale) / 2;
+            auto diffY = (height - m_MainItem.height() * lowerScale) / 2;
+            m_Scene->items().at(0)->setPos(-(width / 2) + diffX, -(height / 2) + diffY);
+            m_Scene->items().at(0)->setScale(lowerScale);
+        }
+    } else if constexpr (std::is_base_of_v<QGraphicsItem, std::remove_reference_t<decltype(m_MainItem)>>) {
+        auto scaleW = (double)width / m_MainItem.image().width();
+        auto scaleH = (double)height / m_MainItem.image().height();
         auto lowerScale = scaleW > scaleH ? scaleH : scaleW;
-        item->setScale(lowerScale);
-        auto ptr = dynamic_cast<BaseImageItem*>(item);
-        if(ptr){
-            ptr->resetItemData(lowerScale);
-        }
-        if constexpr (std::is_same_v<std::remove_reference_t<decltype(m_MainItem)>, QPixmap>){
-            auto diffX = (width - item->boundingRect().width() * lowerScale) / 2;
-            auto diffY = (height - item->boundingRect().height() * lowerScale) / 2;
-            item->setPos(-(width / 2) + diffX, -(height / 2) + diffY);
-        } else if constexpr (std::is_base_of_v<QGraphicsItem, std::remove_reference_t<decltype(m_MainItem)>>){
-            item->setPos(0, 0);
-        }
+        m_MainItem.resetItemData(lowerScale);
+        m_MainItem.setScale(lowerScale);
+        m_MainItem.setPos(0, 0);
     }
     m_Scene->setSceneRect(QRectF(-width / 2, -height / 2, width, height));
 }

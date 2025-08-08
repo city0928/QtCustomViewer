@@ -21,6 +21,8 @@ public:
     BaseImageItem(QGraphicsItem* parent = nullptr) noexcept;
     BaseImageItem(QPixmap pixmap, QGraphicsItem* parent = nullptr) noexcept;
 
+    QPixmap image() const { return m_Img; }
+
     virtual void clearData() noexcept override;
     virtual void resetItemData(double newScaleValue) noexcept override;
     virtual QRectF boundingRect() const override;
