@@ -22,8 +22,8 @@ set(PROJECT_SOURCES
     main.cpp
     src/CustomItems/BaseImageItem.h
     src/CustomItems/BaseImageItem.cpp
-    src/CustomView/Viewer.h
-    src/CustomView/Viewer.cpp
+    src/CustomView/BaseImageViewer.h
+    src/CustomView/BaseImageViewer.cpp
     src/CustomView/BaseImageViewWidget.h
     src/CustomView/BaseImageViewWidget.cpp
 )

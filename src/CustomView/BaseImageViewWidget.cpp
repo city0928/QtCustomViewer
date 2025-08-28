@@ -7,7 +7,7 @@
 #include <QResizeEvent>
 
 #include "BaseImageItem.h"
-#include "Viewer.h"
+#include "BaseImageViewer.h"
 
 template <class T>
 BaseImageViewWidget<T>::BaseImageViewWidget(QWidget* parent)
@@ -118,7 +118,7 @@ template <class T> double BaseImageViewWidget<T>::viewShowItemMinScale() noexcep
 template <class T> void BaseImageViewWidget<T>::initUi() noexcept
 {
     m_Scene = new QGraphicsScene(this);
-    m_View = new Viewer(this);
+    m_View = new BaseImageViewer(this);
     m_View->setScene(m_Scene);
 }
 template <class T> void BaseImageViewWidget<T>::initLayout() noexcept

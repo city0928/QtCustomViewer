@@ -6,7 +6,7 @@
 #include "BaseImageItem.h"
 
 class QGridLayout;
-class Viewer;
+class BaseImageViewer;
 
 template<class T>
 class BaseImageViewWidget : public QWidget
@@ -15,7 +15,7 @@ class BaseImageViewWidget : public QWidget
 public:
     BaseImageViewWidget(QWidget *parent = nullptr);
 
-    Viewer* view(){ return m_View; };
+    BaseImageViewer* view(){ return m_View; };
     QGraphicsScene* scene(){ return m_Scene; };
 
     void clearItems() noexcept;
@@ -37,7 +37,7 @@ private:
     // T m_MainItem;
     QGridLayout* m_Obj{nullptr};
     QGraphicsScene *m_Scene{nullptr};
-    Viewer* m_View{nullptr};
+    BaseImageViewer* m_View{nullptr};
 };
 
 template class BaseImageViewWidget<QGraphicsPixmapItem>;
