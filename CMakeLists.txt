@@ -16,17 +16,26 @@ include_directories(
     src/
     src/CustomView/
     src/CustomItems/
+    src/Utils
 )
 
 set(PROJECT_SOURCES
     main.cpp
     src/CustomItems/BaseImageItem.h
     src/CustomItems/BaseImageItem.cpp
+    src/CustomItems/CustomBuildPolygonItem.h
+    src/CustomItems/CustomBuildPolygonItem.cpp
+    src/CustomItems/CustomBuildPointSeamlessImageItem.h
+    src/CustomItems/CustomBuildPointSeamlessImageItem.cpp
     src/CustomView/BaseImageViewer.h
     src/CustomView/BaseImageViewer.cpp
     src/CustomView/BaseImageViewWidget.h
     src/CustomView/BaseImageViewWidget.cpp
+    src/Utils/BaseHelper.h
+    src/Utils/BaseHelper.cpp
 )
+
+include(3rdParty/opencv481/LibOpencv.cmake)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(QtCustomViewer
@@ -52,6 +61,9 @@ else()
 endif()
 
 target_link_libraries(QtCustomViewer PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(QtCustomViewer PRIVATE
+    ${libopencv481_LIBRARIES}
+)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
